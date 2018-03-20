@@ -41,4 +41,11 @@ public class HelloWorldTest {
         assertEquals("Hello Neil", s);
 
     }
+
+    @Test
+    public void getAnyNumTest(){
+
+        int n = hw.getAnyNum();
+        assertEquals(5,n);
+    }
 }
