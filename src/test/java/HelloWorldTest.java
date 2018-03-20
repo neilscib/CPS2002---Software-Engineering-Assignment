@@ -36,7 +36,7 @@ public class HelloWorldTest {
     @Test
     public void getMessNameTestWrong(){
 
-        String s = hw.getMessName("Frank");
+        String s = hw.getMessName("Neil");
 
         assertEquals("Hello Neil", s);
 
