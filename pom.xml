@@ -7,7 +7,20 @@
     <groupId>SimpleGame</groupId>
     <artifactId>SimpleGameArtifact</artifactId>
     <version>1.0-SNAPSHOT</version>
-
+    
+     <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.sonatype.maven.plugin</groupId>
+                <artifactId>emma-maven-plugin</artifactId>
+                <version>1.3</version>
+                <configuration>
+                    <formats>html,xml,txt</formats>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
+         
     <!-- https://mvnrepository.com/artifact/junit/junit to get dependencies -->
     <dependencies>
         <dependency>
