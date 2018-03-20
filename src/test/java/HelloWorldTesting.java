@@ -23,4 +23,13 @@ public class HelloWorldTesting {
 
         assertEquals("Hello World!", s);
     }
+
+    @Test
+    public void getMessNameTest(){
+
+        String s = hw.getMessName("Frank");
+
+        assertEquals("Hello Frank", s);
+
+    }
 }
