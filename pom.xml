@@ -7,7 +7,7 @@
     <groupId>SimpleGame</groupId>
     <artifactId>SimpleGameArtifact</artifactId>
     <version>1.0-SNAPSHOT</version>
-             
+
     <!-- https://mvnrepository.com/artifact/junit/junit to get dependencies -->
     <dependencies>
         <dependency>
