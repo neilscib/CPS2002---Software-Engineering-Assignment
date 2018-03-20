@@ -3,7 +3,7 @@ import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
 
-public class HelloWorldTesting {
+public class HelloWorldTest {
     HelloWorld hw;
 
     @Before
