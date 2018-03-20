@@ -8,4 +8,8 @@ public class HelloWorld {
         return "Hello " + s1;
     }
 
+    public int getAnyNum(){
+        return 5;
+
+    }
 }
