@@ -19,6 +19,12 @@ public class Map {
         }
     }
 
+    //map getter
+    public Cell [] [] getMap(){
+        return map;
+    }
+
+
     //size setter
     public void setSize(int size) {
         this.size = size;
@@ -31,7 +37,7 @@ public class Map {
     }
 
     //generates the map and returns it
-    private Cell [] [] generateMap(int size, Position winningCell){
+    public Cell [] [] generateMap(int size, Position winningCell){
         Random rand = new Random();
 
         //create map 2d array with accepted size
@@ -43,42 +49,37 @@ public class Map {
 
         for(int i = 0; i<size; i++){
             for(int j = 0 ; j<size; j++){
+                System.out.println("I:" + i + "J: " + j);
                 //check if we are in coordinates of winning cell and act accordingly
                 if(winningXCoord == i && winningYCoord == j){
-                    myMap[i][j].type = Type.TREASURE;
+                    System.out.println("b");
+                    myMap[i][j] = new Cell(Type.TREASURE);
+                    System.out.println("a");
                 }else{
-                    int randomNum = rand.nextInt((2 - 1) + 1) + 1;
+                    int randomNum = rand.nextInt(2);
                     if(randomNum == 0) {
-                        myMap[i][j].type = Type.GREEEN;
+                        System.out.println("bg");
+                        myMap[i][j] = new Cell(Type.GREEN);
+                        System.out.println("ag");
                     }else{
-                        myMap[i][j].type = Type.BLUE;
+                        System.out.println("bb");
+                        myMap[i][j] = new Cell(Type.BLUE);
+                        System.out.println("ab");
                     }
                 }
 
-                //set each cell to unvisited
-                myMap[i][j].visited = false;
             }
         }
 
         return myMap;
     }
 
-    //used to test the generateMap function
-    public Cell [] [] test_generateMap(int size,Position p){
-        return generateMap(size,p);
-    }
-
-    //used to test the getWinningCell function
-    public Position test_getWinningCell(int size){
-        return getWinningCell(size);
-    }
-
     //generates a random winning position and returns it
-    private Position getWinningCell(int size){
+    public Position getWinningCell(int size){
         Random rand = new Random();
 
-        int randomX = rand.nextInt((size)+1)+1;
-        int randomY = rand.nextInt((size)+1)+1;
+        int randomX = rand.nextInt(size);
+        int randomY = rand.nextInt(size);
 
         Position p = new Position(randomX, randomY);
 

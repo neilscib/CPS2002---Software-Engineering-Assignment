@@ -1,3 +1,3 @@
 public enum Type {
-    GREEEN, BLUE, TREASURE;
+    GREEN, BLUE, TREASURE;
 }

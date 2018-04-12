@@ -54,13 +54,26 @@ public class MapTest {
     }
 
     @Test
-    public void checkWinningCellIsAssigned(){
-        Position winPos = m.test_getWinningCell(5);
+    public void checkGenerateMap(){
+        Position winPos = m.getWinningCell(5);
         int x_coord = winPos.getX();
         int y_coord = winPos.getY();
 
-        Cell [] [] generatedMap = m.test_generateMap(5,winPos);
+        Cell [] [] generatedMap = m.generateMap(5,winPos);
 
-        assertEquals(Type.TREASURE,m.getTileType(x_coord,y_coord));
+        assertEquals(generatedMap[x_coord][y_coord].type,Type.TREASURE);
+    }
+
+    @Test
+    public void checkGetTile(){
+        m.setSize(5);
+        Cell [] [] myMap = m.getMap();
+        for (int i = 0; i < 5; i++){
+            for (int j = 0; j<5; j++){
+                if (myMap[i][j].type == Type.TREASURE ){
+                    assertEquals(m.getTileType(i,j),Type.TREASURE);
+                }
+            }
+        }
     }
 }
