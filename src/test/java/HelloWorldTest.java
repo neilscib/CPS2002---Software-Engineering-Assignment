@@ -44,7 +44,6 @@ public class HelloWorldTest {
 
     @Test
     public void getAnyNumTest(){
-
         int n = hw.getAnyNum();
         assertEquals(5,n);
     }
