@@ -46,4 +46,28 @@ public class MapTest {
         boolean result = m.setMapSize(8, 5);
         assertEquals(true, result);
     }
+
+    @Test
+    public void checkSizeSetter(){
+        m.setSize(5);
+        assertEquals(5,m.getSize());
+    }
+
+    @Test
+    public void checkWinningCellIsAssigned(){
+        Position winPos = m.test_getWinningCell(5);
+        int x_coord = winPos.getX();
+        int y_coord = winPos.getY();
+
+        Cell [] [] generatedMap = m.test_generateMap(5,winPos);
+
+        for (int i = 0; i<5; i++){
+            for (int j = 0; j<5; j++){
+                if(generatedMap[i][j].type == Type.TREASURE){
+                    assertEquals(i,x_coord);
+                    assertEquals(j,y_coord);
+                }
+            }
+        }
+    }
 }
