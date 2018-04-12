@@ -1,6 +1,6 @@
 public class Map {
     private int size;
-    private Cell myMap
+    //private Cell myMap;
 
     public boolean setMapSize(int size, int numPlayers){
         if(size <=50) {
@@ -16,11 +16,14 @@ public class Map {
         }
     }
 
+
     public void setSize(int size) {
         this.size = size;
+        generateMap();
     }
 
-    public void generateMap(){
-        private Cell myMap [this.size] [this.size];
+    private void generateMap(){
+        //myMap = new Cell[size][size];
+
     }
 }
