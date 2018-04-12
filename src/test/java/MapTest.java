@@ -61,13 +61,6 @@ public class MapTest {
 
         Cell [] [] generatedMap = m.test_generateMap(5,winPos);
 
-        for (int i = 0; i<5; i++){
-            for (int j = 0; j<5; j++){
-                if(generatedMap[i][j].type == Type.TREASURE){
-                    assertEquals(i,x_coord);
-                    assertEquals(j,y_coord);
-                }
-            }
-        }
+        assertEquals(Type.TREASURE,m.getTileType(x_coord,y_coord));
     }
 }

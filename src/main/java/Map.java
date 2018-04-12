@@ -84,4 +84,9 @@ public class Map {
 
         return p;
     }
+
+    //returns the tile type
+    public Type getTileType(int x, int y){
+        return map[x][y].type;
+    }
 }
