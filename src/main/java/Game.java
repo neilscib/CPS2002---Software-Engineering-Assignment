@@ -2,6 +2,11 @@ import java.util.Scanner;
 //import Player.java;
 //import Map.java;
 
+
+//REMAINING THINGS TO DO:
+//	UNIT TESTING FOR GAME.JAVA 
+//	generateHTML() method in game.java
+
 public class Game{
 
     private int turns;
