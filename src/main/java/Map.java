@@ -6,22 +6,18 @@ public class Map {
     private Position treasure;
 
     //check whether map size and number of players are compatible according to given restrictions
-    public boolean setMapSize(int size, int numPlayers)
-    {
+    public boolean setMapSize(int size, int numPlayers){
         if(size <=50) {
-            if (numPlayers >= 2 && size <= 8) {
-                if (numPlayers <= 4) {
-                    if (size >= 5)
-                        return true;
-
-                } else if (size >= 8)
-                    return true;
-
-            } else
+            if (numPlayers >= 5 && size >= 8) {
+                return true;
+            }else if (numPlayers < 5 && size >= 5) {
+                return true;
+            }else{
                 return false;
+            }
+        }else{
             return false;
         }
-        return false;
     }
 
     //map getter

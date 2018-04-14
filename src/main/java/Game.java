@@ -1,7 +1,4 @@
 import java.util.Scanner;
-//import Player.java;
-//import Map.java;
-
 
 //REMAINING THINGS TO DO:
 //	UNIT TESTING FOR GAME.JAVA 
@@ -11,11 +8,11 @@ public class Game{
 
     private int turns;
     private Player [] players;
-    public Map map;
-    public boolean [] treasureFlags; // a boolean for every player, which is true when a certain player has reached the treasure
-    public boolean won; //signals whether the whole game has been won or not
+    private Map map;
+    private boolean [] treasureFlags; // a boolean for every player, which is true when a certain player has reached the treasure
+    private boolean won; //signals whether the whole game has been won or not
 
-    public void startGame(int size, int numPlayers)
+    private void startGame(int size, int numPlayers)
     {
         //on startup the map with the given size is generated 
         map.setSize(size);
@@ -37,7 +34,8 @@ public class Game{
         }
     }
 
-    public char askDirectionPlayer(int playerNum)
+    //asks player for direction and return the character
+    private char askDirectionPlayer(int playerNum)
     {
         Scanner in = new Scanner(System.in);
 
@@ -67,12 +65,12 @@ public class Game{
         return 'e';
     }
 
-    public int getNumPlayers()
+    private int getNumPlayers()
     {
         return players.length;
     }
 
-    public Player getPlayer(int arrayIndex)
+    private Player getPlayer(int arrayIndex)
     {
         return players[arrayIndex];
     }
@@ -85,7 +83,7 @@ public class Game{
     }
     */
 
-    public void generateHTMLFiles()
+    private void generateHTMLFiles()
     {
 
     }
