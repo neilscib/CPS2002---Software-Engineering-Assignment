@@ -55,11 +55,11 @@ public class MapTest {
 
     @Test
     public void checkGenerateMap(){
-        Position winPos = m.getWinningCell(5);
+        Position winPos = m.generateWinningCell(5);
         int x_coord = winPos.getX();
         int y_coord = winPos.getY();
 
-        Cell [] [] generatedMap = m.generateMap(5,winPos);
+        Cell [] [] generatedMap = m.generateMap(5);
 
         assertEquals(generatedMap[x_coord][y_coord].type,Type.TREASURE);
     }
@@ -76,4 +76,6 @@ public class MapTest {
             }
         }
     }
+
+
 }
