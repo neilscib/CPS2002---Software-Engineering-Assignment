@@ -25,6 +25,18 @@ public class Map {
         return map;
     }
 
+    //get copy of map
+    public Cell [] [] getCopyOfMap(){
+        Cell[] [] myCopy = new Cell [map[0].length][map[0].length];
+        for (int i = 0 ; i < map[0].length;i++){
+            for (int j = 0 ; j < map[0].length;j++){
+                myCopy[i][j] = new Cell ((map[i][j]).type);
+                myCopy[i][j].visited = false;
+            }
+        }
+        return myCopy;
+    }
+
 
     //size setter
     public void setSize(int size) {
@@ -62,8 +74,8 @@ public class Map {
                     myMap[i][j] = new Cell(Type.TREASURE);
                     //System.out.println("a");
                 }else {
-                    int randomNum = rand.nextInt(2);
-                    if(randomNum == 0) {
+                    int randomNum = rand.nextInt(100);
+                    if(randomNum >10) {
                         //System.out.println("bg");
                         myMap[i][j] = new Cell(Type.GREEN);
                         //System.out.println("ag");
@@ -100,13 +112,14 @@ public class Map {
     }
 
     //returns the tile type
-    public Type getTileType(int x, int y){
-        return map[x][y].type;
+    public Type getTileType(int x, int y, Cell[][] passedMap){
+        return passedMap[x][y].type;
     }
 
-    public void visitCoord(int x, int y)
+    //changes status of the current position in the passed map
+    public void visitCoord(int x, int y, Cell[][] passedMap)
     {
-        map[x][y].visited = true;
+        passedMap[x][y].visited = true;
     }
 
 

@@ -1,8 +1,8 @@
 import java.util.Scanner;
 
 //REMAINING THINGS TO DO:
-//	UNIT TESTING FOR GAME.JAVA 
-//	generateHTML() method in game.java
+//	UNIT TESTING FOR GAME.JAVA
+// Water Tile Bug - After passing over it the first time the game lets you go over it in the next iteration
 
 public class Game{
 
@@ -26,8 +26,9 @@ public class Game{
         //creating the new position for every player
         for(int i = 0; i < numPlayers; i++)
         {
-            players[i] = new Player();
-            players[i].setPosition(map.getTreasurePos(), size, map);
+            players[i] = new Player(map.getCopyOfMap());
+            players[i].setPosition(map.getTreasurePos(),size);
+            players[i].setInitialPos();
 
             //at startup all the flags are false
             treasureFlags[i] = false;
@@ -40,7 +41,7 @@ public class Game{
         Scanner in = new Scanner(System.in);
 
         System.out.println("Player " + playerNum + ", your position is: " + players[playerNum].getPosition());
-        System.out.println("enter direction:");
+        System.out.println("Enter direction:");
         System.out.println("Up (u) Down (d) Left (l) Right (r)");
 
         char direction = in.next().charAt(0);
@@ -70,11 +71,6 @@ public class Game{
         return players.length;
     }
 
-    private Player getPlayer(int arrayIndex)
-    {
-        return players[arrayIndex];
-    }
-
 
     /*
     public boolean setNumPlayers(int n)
@@ -83,9 +79,14 @@ public class Game{
     }
     */
 
-    private void generateHTMLFiles()
+    //generates an HTML File per player
+    private void generateHTMLFiles(HTMLBuilder builder, Player[] listOfPlayers)
     {
-
+        int counter = 0;
+        for(Player player : listOfPlayers){
+            builder.writeMapToFile("Player"+counter+".html", player.getMap(), counter, player.getPosition());
+            counter+=1;
+        }
     }
 
 
@@ -95,8 +96,8 @@ public class Game{
         Game game = new Game();
         game.map = new Map();
 
-        int numPlayers = 0;
-        int size = 0;
+        int numPlayers;
+        int size;
 
         //The user will keep on being prompted to enter the size and the number of players until they are valid.
         System.out.println("Enter number of players:");
@@ -117,12 +118,15 @@ public class Game{
 
         game.startGame(size, numPlayers);
 
+        //starting HTML Builder
+        HTMLBuilder builder = new HTMLBuilder(numPlayers, game.map.getMap());
+
         System.out.println("Treasure is at: " + game.map.getTreasurePos());
 
         //while the game has not been won
         while (!game.won)
         {
-            char direction = 'e';
+            char direction;
 
             //prompting every user to enter 'u','d','l' or 'r', and then tell him whether it was a valid move or not
             for (int i = 0; i < game.getNumPlayers(); i++)
@@ -132,7 +136,7 @@ public class Game{
                 direction = game.askDirectionPlayer(i);
 
                 //setting the boolean 'visited' of the new position as true, in the private copy of the map (this is happening in move())
-                if (!game.getPlayer(i).move(direction, size))
+                if (!game.players[i].move(direction, size))
                     System.out.println("That was an invalid move");
                 else
                     System.out.println("Your new position is: " + game.players[i].getPosition());
@@ -150,17 +154,17 @@ public class Game{
                     //System.out.println("That move is invalid, out of bounds of the map!");
 
 
-                //updating the HTML files
-                game.generateHTMLFiles();
-
                 //if the position of this player is the same as the winning position, then set his treasure flag as true
                 if ((game.map.getTreasurePos().getX() == tempPos.getX()) && (game.map.getTreasurePos().getY() == tempPos.getY()))
                     game.treasureFlags[i] = true;
-                else if (game.map.getTileType(tempPos.getX(), tempPos.getY()) == Type.BLUE)
+                else if (game.map.getTileType(tempPos.getX(), tempPos.getY(), game.players[i].getMap()) == Type.BLUE)
                 {
                     game.players[i].moveToInitial();
                     System.out.println("Player " + i + " you moved on a water tile " + tempPos +" ! You have been sent back to the initial position " + game.players[i].getInitial());
                 }
+
+                //updating the HTML files
+                game.generateHTMLFiles(builder, game.players);
             }
 
             //then after we uncovered the tiles of the players, we are going to check declare the winners and stop the game.

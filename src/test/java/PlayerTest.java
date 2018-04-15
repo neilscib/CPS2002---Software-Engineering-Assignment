@@ -11,7 +11,7 @@ public class PlayerTest {
 
     @Before
     public void setup(){
-        player1 = new Player();
+        player1 = new Player(map.getMap());
         map = new Map();
         map.setMapSize(5,2);
         map.setSize(5);
@@ -28,8 +28,8 @@ public class PlayerTest {
     public void testSetPosition()
     {
 
-        player1 = new Player();
-        player1.setPosition(map.getTreasurePos(), 5, map);
+        player1 = new Player(map.getMap());
+        player1.setPosition(map.getTreasurePos(), 5);
 
         int x = player1.getPosition().getX();
         int y = player1.getPosition().getY();
@@ -44,8 +44,8 @@ public class PlayerTest {
     @Test
     public void testMoveValid()
     {
-        player1 = new Player();
-        player1.setPosition(map.getTreasurePos(), 5, map);
+        player1 = new Player(map.getMap());
+        player1.setPosition(map.getTreasurePos(), 5);
         int x_old = player1.getPosition().getX();
         int y_old = player1.getPosition().getY();
 
@@ -93,8 +93,8 @@ public class PlayerTest {
     {
         int mapSize = 5;
 
-        player1 = new Player();
-        player1.setPosition(map.getTreasurePos(), mapSize, map);
+        player1 = new Player(map.getMap());
+        player1.setPosition(map.getTreasurePos(), mapSize);
 
         boolean validityOfLastMove = true;
 
@@ -118,8 +118,8 @@ public class PlayerTest {
 
         int mapSize = 5;
 
-        player1 = new Player();
-        player1.setPosition(map.getTreasurePos(), mapSize, map);
+        player1 = new Player(map.getMap());
+        player1.setPosition(map.getTreasurePos(), mapSize);
 
         pos = player1.getPosition();
 
@@ -133,8 +133,8 @@ public class PlayerTest {
 
         int mapSize = 5;
 
-        player1 = new Player();
-        player1.setPosition(map.getTreasurePos(), mapSize, map);
+        player1 = new Player(map.getMap());
+        player1.setPosition(map.getTreasurePos(), mapSize);
 
         initPos = player1.getPosition();
 

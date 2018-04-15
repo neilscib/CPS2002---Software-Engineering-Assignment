@@ -1,6 +1,3 @@
-//import Position;
-import javafx.geometry.Pos;
-
 import java.util.Random;
 
 
@@ -8,14 +5,22 @@ public class Player
 {
     private Position position;
     private Position initialPos;
-    private Map map; //the private copy of the map
+    private Map myMap;
+    private Cell [] [] map; //the private copy of the map
 
     //constrcutor to be able to initialize the 'position pointer'
-    public Player()
+    public Player(Cell [] [] map)
     {
         //just for the sake of having an object attached to the 'position' pointer, else it will lead to
         //null pointer exception.
         position = new Position(-1,-1);
+
+        //passing generated map to the player
+        this.map = map;
+
+        //initialising map instance
+        myMap = new Map();
+
     }
 
 
@@ -30,16 +35,16 @@ public class Player
         switch(direction)
         {
             case 'u':
-                tempY++;
+                tempX--;
                 break;
             case 'd':
-                tempY--;
-                break;
-            case 'r':
                 tempX++;
                 break;
+            case 'r':
+                tempY++;
+                break;
             case 'l':
-                tempX--;
+                tempY--;
                 break;
         }
 
@@ -55,7 +60,7 @@ public class Player
             position.setX(tempX);
             position.setY(tempY);
 
-            this.map.visitCoord(tempX, tempY);
+            myMap.visitCoord(tempX, tempY, map);
         }
 
         return true;
@@ -63,11 +68,10 @@ public class Player
 
     //Sets the random initial position of the player.
     //This returns true when the random position happens to be the winning cell, else it returns false. 
-    public boolean setPosition(Position winning, int size, Map map)
+    public boolean setPosition(Position winning, int size)
     {
         //this is not really required for setting the initial position, but we need to set this.map pointer to
         //point to somewhere, and now is a good chance to do it, because setPosition() is always called when starting the game.
-        this.map = map;
 
         Random rand = new Random();
 
@@ -78,7 +82,7 @@ public class Player
         position.setY(initY);
 
         //when the randomly generated position is not green, re-generate a random position
-        while(map.getTileType(initX, initY) != Type.GREEN)
+        while(myMap.getTileType(initX, initY, map) != Type.GREEN)
         {
             initX = rand.nextInt(size);
             initY = rand.nextInt(size);
@@ -87,11 +91,12 @@ public class Player
             position.setY(initY);
         }
 
-        //initialPos won't get updated, while position will be updated every time the move() is called.
-        initialPos = position;
 
-        //if the initial random position is the winning position then return true, else return false. 
-        if((winning.getX() == initX) && (winning.getY() == initY))
+        /*initialPos = new Position(position.getX(), position.getY());*/
+
+
+        //if the initial random position is the winning position or a water tile then return true, else return false.
+        if(((winning.getX() == initX) && (winning.getY() == initY))||(map[initX][initY].type == Type.BLUE))
             return true;
         else
             return false;
@@ -114,12 +119,14 @@ public class Player
         return initialPos;
     }
 
-
-    public Map getMap()
+    //returns private map of player
+    public Cell [] [] getMap()
     {
         return map;
     }
 
-
-
+    //method used to set initial position (tried to fix water tile bug - not succesful yet)
+    public void setInitialPos() {
+        initialPos = new Position(position.getX(),position.getY());
+    }
 }
