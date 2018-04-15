@@ -6,27 +6,35 @@ public class Map {
     private Position treasure;
 
     //check whether map size and number of players are compatible according to given restrictions
-    public boolean setMapSize(int size, int numPlayers)
-    {
+    public boolean setMapSize(int size, int numPlayers){
         if(size <=50) {
-            if (numPlayers >= 2 && size <= 8) {
-                if (numPlayers <= 4) {
-                    if (size >= 5)
-                        return true;
-
-                } else if (size >= 8)
-                    return true;
-
-            } else
+            if (numPlayers >= 5 && size >= 8) {
+                return true;
+            }else if (numPlayers < 5 && size >= 5) {
+                return true;
+            }else{
                 return false;
+            }
+        }else{
             return false;
         }
-        return false;
     }
 
     //map getter
     public Cell [] [] getMap(){
         return map;
+    }
+
+    //get copy of map
+    public Cell [] [] getCopyOfMap(){
+        Cell[] [] myCopy = new Cell [map[0].length][map[0].length];
+        for (int i = 0 ; i < map[0].length;i++){
+            for (int j = 0 ; j < map[0].length;j++){
+                myCopy[i][j] = new Cell ((map[i][j]).type);
+                myCopy[i][j].visited = false;
+            }
+        }
+        return myCopy;
     }
 
 
@@ -66,8 +74,8 @@ public class Map {
                     myMap[i][j] = new Cell(Type.TREASURE);
                     //System.out.println("a");
                 }else {
-                    int randomNum = rand.nextInt(2);
-                    if(randomNum == 0) {
+                    int randomNum = rand.nextInt(100);
+                    if(randomNum >10) {
                         //System.out.println("bg");
                         myMap[i][j] = new Cell(Type.GREEN);
                         //System.out.println("ag");
@@ -104,13 +112,14 @@ public class Map {
     }
 
     //returns the tile type
-    public Type getTileType(int x, int y){
-        return map[x][y].type;
+    public Type getTileType(int x, int y, Cell[][] passedMap){
+        return passedMap[x][y].type;
     }
 
-    public void visitCoord(int x, int y)
+    //changes status of the current position in the passed map
+    public void visitCoord(int x, int y, Cell[][] passedMap)
     {
-        map[x][y].visited = true;
+        passedMap[x][y].visited = true;
     }
 
 

@@ -71,7 +71,7 @@ public class MapTest {
         for (int i = 0; i < 5; i++){
             for (int j = 0; j<5; j++){
                 if (myMap[i][j].type == Type.TREASURE ){
-                    assertEquals(m.getTileType(i,j),Type.TREASURE);
+                    assertEquals(m.getTileType(i,j, myMap),Type.TREASURE);
                 }
             }
         }
