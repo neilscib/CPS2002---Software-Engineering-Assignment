@@ -1,4 +1,4 @@
-e.java
+Game.java
 
 	Game(): the constructor was not tested since the only fields that are initialised by the constructor
 	are set as private. The only test that could have been done on those fields is to check that they are 
