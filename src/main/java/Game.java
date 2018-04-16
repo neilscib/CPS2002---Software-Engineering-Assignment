@@ -12,7 +12,19 @@ public class Game{
     private boolean [] treasureFlags; // a boolean for every player, which is true when a certain player has reached the treasure
     private boolean won; //signals whether the whole game has been won or not
 
-    private void startGame(int size, int numPlayers)
+    //constructor
+    public Game()
+    {
+        map = new Map();
+        won = false;
+    }
+
+    public Map getMap()
+    {
+        return map;
+    }
+
+    public  void startGame(int size, int numPlayers)
     {
         //on startup the map with the given size is generated 
         map.setSize(size);
@@ -36,13 +48,9 @@ public class Game{
     }
 
     //asks player for direction and return the character
-    private char askDirectionPlayer(int playerNum)
+    public char askDirectionPlayer(int playerNum)
     {
         Scanner in = new Scanner(System.in);
-
-        System.out.println("Player " + playerNum + ", your position is: " + players[playerNum].getPosition());
-        System.out.println("Enter direction:");
-        System.out.println("Up (u) Down (d) Left (l) Right (r)");
 
         char direction = in.next().charAt(0);
 
@@ -66,7 +74,7 @@ public class Game{
         return 'e';
     }
 
-    private int getNumPlayers()
+    public int getNumPlayers()
     {
         return players.length;
     }
@@ -94,7 +102,7 @@ public class Game{
     {
         Scanner in = new Scanner(System.in);
         Game game = new Game();
-        game.map = new Map();
+        //game.map = new Map();
 
         int numPlayers;
         int size;
@@ -133,6 +141,9 @@ public class Game{
             {
                 System.out.println();
 
+                //System.out.println("Player " + i + ", your position is: " + players[i].getPosition());
+                System.out.println("Enter direction:");
+                System.out.println("Up (u) Down (d) Left (l) Right (r)");
                 direction = game.askDirectionPlayer(i);
 
                 //setting the boolean 'visited' of the new position as true, in the private copy of the map (this is happening in move())
