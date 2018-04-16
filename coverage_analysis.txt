@@ -1,0 +1,41 @@
+Game.java
+
+	Game(): the constructor was not tested since the only fields that are initialised by the constructor
+	are set as private. The only test that could have been done on those fields is to check that they are 
+	not null anymore. But that cannot be done since they are not public.
+
+	getMap(): this is a simple getter method and there is no purpose in testing it. 
+
+	generateHTMLFiles(): no need for test since to check whether its working, you only have to find if the amount of players in game is equal to the amount of files created by this function
+
+Player.java
+
+	Player(): the constructor was not tested for the same reason the Game() contructor was not tested.
+	
+	getInitial(), getMap(): was not tested because it is a simple getter.
+
+Cell.java
+	
+	Cell(): the constructor was not tested for the same reason the Game() contructor was not tested.
+
+HTMLBuilder.java
+	
+	HTMLBuilder(): the constructor was not tested for the same reason the Game() contructor was not tested.
+
+	writeMaptToFile(): no need to test it since it produced an html file which could be inspectioned if an error occured. If the file could not be opened, the error would be caught through exception handling.
+
+Map.java
+	
+	getCopyOfMap(): was not tested since it only physically produced a copy of a 2d array
+
+	getTreusurePos(): was not tested since its only a getter
+
+	visitCoord(): was not tested since it only changed one attribatue of a Cell (too simple to test)
+
+Position.java
+
+	No tests were produced for all of the methods of this class since it only contains setters and getters
+
+Type.java
+	
+	No tests for this class since its an enum class
