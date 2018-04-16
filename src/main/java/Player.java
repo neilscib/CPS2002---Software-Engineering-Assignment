@@ -111,7 +111,7 @@ public class Player
     //when the player moves on a water tile, he is sent back to his initial position.
     public void moveToInitial()
     {
-        position = initialPos;
+        position = new Position(initialPos.getX(), initialPos.getY());
     }
 
     public Position getInitial()
@@ -126,7 +126,8 @@ public class Player
     }
 
     //method used to set initial position (tried to fix water tile bug - not succesful yet)
-    public void setInitialPos() {
+    public void setInitialPos()
+    {
         initialPos = new Position(position.getX(),position.getY());
     }
 }

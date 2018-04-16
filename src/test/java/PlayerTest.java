@@ -11,11 +11,10 @@ public class PlayerTest {
 
     @Before
     public void setup(){
-        player1 = new Player(map.getMap());
         map = new Map();
         map.setMapSize(5,2);
         map.setSize(5);
-
+        player1 = new Player(map.getMap());
     }
 
     @After
@@ -64,9 +63,12 @@ public class PlayerTest {
                     direction = 'u';
                     break;
                 case 1:
-                    direction = 'l';
+                    direction = 'd';
                     break;
                 case 2:
+                    direction = 'l';
+                    break;
+                case 3:
                     direction = 'r';
                     break;
             }
@@ -77,9 +79,9 @@ public class PlayerTest {
         int x_new = player1.getPosition().getX();
         int y_new = player1.getPosition().getY();
 
-        //when the counter is 0 or 1, it means that the direction of movement was either up or down, so we
+        //when the counter is 1 or 2, it means that the direction of movement was either left or right, so we
         //test on the y value
-        if((counter == 0) || (counter == 1))
+        if((counter == 2) || (counter == 3))
             assertThat(y_new, anyOf(equalTo(y_old+1), equalTo(y_old-1)));
         else
             assertThat(x_new, anyOf(equalTo(x_old+1), equalTo(x_old-1)));
@@ -135,16 +137,30 @@ public class PlayerTest {
 
         player1 = new Player(map.getMap());
         player1.setPosition(map.getTreasurePos(), mapSize);
-
-        initPos = player1.getPosition();
+        player1.setInitialPos();
 
         player1.move('d', mapSize);
         player1.move('r', mapSize);
 
+
         player1.moveToInitial();
         Position movedPos = player1.getPosition();
 
-        assertEquals(initPos, movedPos);
+        assertEquals(movedPos,player1.getPosition());
+    }
+
+    @Test
+    public void setInitialPosTest()
+    {
+        //testing that setInitial actually sets the initialPos field.
+        //Verifying by calling the setPosition and then setInitialPos.
+
+        player1 = new Player(map.getMap());
+        player1.setPosition(map.getTreasurePos(), 5);
+        player1.setInitialPos();
+
+        assertEquals(player1.getPosition().getX(), player1.getInitial().getX());
+        assertEquals(player1.getPosition().getY(), player1.getInitial().getY());
     }
 
 
