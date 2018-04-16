@@ -1,0 +1,209 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Map</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">&lt;empty package name&gt;</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Map (&lt;empty package name&gt;)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Map</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    72.7%
+  </span>
+  <span class="absValue">
+    (8/ 11)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    76.7%
+  </span>
+  <span class="absValue">
+    (33/ 43)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;import java.util.Random;
+<i>2</i>&nbsp;
+<b class="fc"><i>3</i>&nbsp;public class Map {</b>
+<i>4</i>&nbsp;    private int size;
+<i>5</i>&nbsp;    private Cell [] [] map;
+<i>6</i>&nbsp;    private Position treasure;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;    //check whether map size and number of players are compatible according to given restrictions
+<i>9</i>&nbsp;    public boolean setMapSize(int size, int numPlayers){
+<b class="nc"><i>10</i>&nbsp;        if(size &lt;=50) {</b>
+<b class="nc"><i>11</i>&nbsp;            if (numPlayers &gt;= 5 &amp;&amp; size &gt;= 8) {</b>
+<b class="nc"><i>12</i>&nbsp;                return true;</b>
+<b class="nc"><i>13</i>&nbsp;            }else if (numPlayers &lt; 5 &amp;&amp; size &gt;= 5) {</b>
+<b class="nc"><i>14</i>&nbsp;                return true;</b>
+<i>15</i>&nbsp;            }else{
+<b class="nc"><i>16</i>&nbsp;                return false;</b>
+<i>17</i>&nbsp;            }
+<i>18</i>&nbsp;        }else{
+<b class="nc"><i>19</i>&nbsp;            return false;</b>
+<i>20</i>&nbsp;        }
+<i>21</i>&nbsp;    }
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;    //map getter
+<i>24</i>&nbsp;    public Cell [] [] getMap(){
+<b class="nc"><i>25</i>&nbsp;        return map;</b>
+<i>26</i>&nbsp;    }
+<i>27</i>&nbsp;
+<i>28</i>&nbsp;    //get copy of map
+<i>29</i>&nbsp;    public Cell [] [] getCopyOfMap(){
+<b class="fc"><i>30</i>&nbsp;        Cell[] [] myCopy = new Cell [map[0].length][map[0].length];</b>
+<b class="fc"><i>31</i>&nbsp;        for (int i = 0 ; i &lt; map[0].length;i++){</b>
+<b class="fc"><i>32</i>&nbsp;            for (int j = 0 ; j &lt; map[0].length;j++){</b>
+<b class="fc"><i>33</i>&nbsp;                myCopy[i][j] = new Cell ((map[i][j]).type);</b>
+<b class="fc"><i>34</i>&nbsp;                myCopy[i][j].visited = false;</b>
+<i>35</i>&nbsp;            }
+<i>36</i>&nbsp;        }
+<b class="fc"><i>37</i>&nbsp;        return myCopy;</b>
+<i>38</i>&nbsp;    }
+<i>39</i>&nbsp;
+<i>40</i>&nbsp;
+<i>41</i>&nbsp;    //size setter
+<i>42</i>&nbsp;    public void setSize(int size) {
+<b class="fc"><i>43</i>&nbsp;        this.size = size;</b>
+<b class="fc"><i>44</i>&nbsp;        generateWinningCell(size);</b>
+<b class="fc"><i>45</i>&nbsp;        map = generateMap(size);</b>
+<b class="fc"><i>46</i>&nbsp;    }</b>
+<i>47</i>&nbsp;
+<i>48</i>&nbsp;    //size getter
+<i>49</i>&nbsp;    public int getSize(){
+<b class="fc"><i>50</i>&nbsp;        return size;</b>
+<i>51</i>&nbsp;    }
+<i>52</i>&nbsp;
+<i>53</i>&nbsp;    //generates the map and returns it
+<i>54</i>&nbsp;    public Cell [] [] generateMap(int size){
+<b class="fc"><i>55</i>&nbsp;        Random rand = new Random();</b>
+<i>56</i>&nbsp;
+<i>57</i>&nbsp;        //create map 2d array with accepted size
+<b class="fc"><i>58</i>&nbsp;        Cell [][] myMap = new Cell[size][size];</b>
+<i>59</i>&nbsp;
+<i>60</i>&nbsp;        //get position of winning cell
+<b class="fc"><i>61</i>&nbsp;        int winningXCoord = treasure.getX();</b>
+<b class="fc"><i>62</i>&nbsp;        int winningYCoord = treasure.getY();</b>
+<i>63</i>&nbsp;
+<b class="fc"><i>64</i>&nbsp;        for(int i = 0; i&lt;size; i++)</b>
+<i>65</i>&nbsp;        {
+<b class="fc"><i>66</i>&nbsp;            for(int j = 0 ; j&lt;size; j++)</b>
+<i>67</i>&nbsp;            {
+<i>68</i>&nbsp;                //System.out.println(&quot;I:&quot; + i + &quot; J: &quot; + j);
+<i>69</i>&nbsp;
+<i>70</i>&nbsp;                //check if we are in coordinates of winning cell and act accordingly
+<b class="fc"><i>71</i>&nbsp;                if(winningXCoord == i &amp;&amp; winningYCoord == j)</b>
+<i>72</i>&nbsp;                {
+<i>73</i>&nbsp;                    //System.out.println(&quot;b&quot;);
+<b class="fc"><i>74</i>&nbsp;                    myMap[i][j] = new Cell(Type.TREASURE);</b>
+<i>75</i>&nbsp;                    //System.out.println(&quot;a&quot;);
+<i>76</i>&nbsp;                }else {
+<b class="fc"><i>77</i>&nbsp;                    int randomNum = rand.nextInt(100);</b>
+<b class="fc"><i>78</i>&nbsp;                    if(randomNum &gt;10) {</b>
+<i>79</i>&nbsp;                        //System.out.println(&quot;bg&quot;);
+<b class="fc"><i>80</i>&nbsp;                        myMap[i][j] = new Cell(Type.GREEN);</b>
+<i>81</i>&nbsp;                        //System.out.println(&quot;ag&quot;);
+<i>82</i>&nbsp;                    }else{
+<i>83</i>&nbsp;                        //System.out.println(&quot;bb&quot;);
+<b class="fc"><i>84</i>&nbsp;                        myMap[i][j] = new Cell(Type.BLUE);</b>
+<i>85</i>&nbsp;                        //System.out.println(&quot;ab&quot;);
+<i>86</i>&nbsp;                    }
+<i>87</i>&nbsp;                }
+<i>88</i>&nbsp;
+<i>89</i>&nbsp;            }
+<i>90</i>&nbsp;        }
+<i>91</i>&nbsp;
+<b class="fc"><i>92</i>&nbsp;        return myMap;</b>
+<i>93</i>&nbsp;    }
+<i>94</i>&nbsp;
+<i>95</i>&nbsp;    //returns the winning coordinate without generating a new one every time being called
+<i>96</i>&nbsp;    public Position getTreasurePos()
+<i>97</i>&nbsp;    {
+<b class="fc"><i>98</i>&nbsp;        return treasure;</b>
+<i>99</i>&nbsp;    }
+<i>100</i>&nbsp;
+<i>101</i>&nbsp;    //generates a random winning position and returns it
+<i>102</i>&nbsp;    public Position generateWinningCell(int size){
+<b class="fc"><i>103</i>&nbsp;        Random rand = new Random();</b>
+<i>104</i>&nbsp;
+<b class="fc"><i>105</i>&nbsp;        int randomX = rand.nextInt(size);</b>
+<b class="fc"><i>106</i>&nbsp;        int randomY = rand.nextInt(size);</b>
+<i>107</i>&nbsp;
+<b class="fc"><i>108</i>&nbsp;        Position p = new Position(randomX, randomY);</b>
+<b class="fc"><i>109</i>&nbsp;        treasure = p;</b>
+<i>110</i>&nbsp;
+<b class="fc"><i>111</i>&nbsp;        return p;</b>
+<i>112</i>&nbsp;    }
+<i>113</i>&nbsp;
+<i>114</i>&nbsp;    //returns the tile type
+<i>115</i>&nbsp;    public Type getTileType(int x, int y, Cell[][] passedMap){
+<b class="fc"><i>116</i>&nbsp;        return passedMap[x][y].type;</b>
+<i>117</i>&nbsp;    }
+<i>118</i>&nbsp;
+<i>119</i>&nbsp;    //changes status of the current position in the passed map
+<i>120</i>&nbsp;    public void visitCoord(int x, int y, Cell[][] passedMap)
+<i>121</i>&nbsp;    {
+<b class="nc"><i>122</i>&nbsp;        passedMap[x][y].visited = true;</b>
+<b class="nc"><i>123</i>&nbsp;    }</b>
+<i>124</i>&nbsp;
+<i>125</i>&nbsp;
+<i>126</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2018-04-16 20:27</div>
+</div>
+</body>
+</html>
