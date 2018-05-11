@@ -5,6 +5,38 @@ public class Map {
     private Cell [] [] map;
     private Position treasure;
 
+    /*
+    This sets the constructor(even if there is no implementation for it) as private, so no one can call new Map()
+    from another class, and the new object of class can only be created using getMapInstance().
+     */
+    private Map(int prob)
+    {
+
+    }
+
+    /*
+    This will initially be set to null.
+    */
+    private static Map mapObj;
+
+    /*
+    This method will create and return the instance of the map object.
+    */
+    public static Map getMapInstance(int prob)
+    {
+        if(mapObj == null)
+            return mapObj = new Map(prob);
+        else return null;
+    }
+
+    /*
+    This will be called if the map instance needs to be deleted, for any reason whatsoever.
+     */
+    public static void resetInstance()
+    {
+        mapObj = null;
+    }
+
     //check whether map size and number of players are compatible according to given restrictions
     public boolean setMapSize(int size, int numPlayers){
         if(size <=50) {
