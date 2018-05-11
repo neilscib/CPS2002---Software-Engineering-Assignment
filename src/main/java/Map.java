@@ -16,8 +16,6 @@ public class Map {
         this.probability_water = probability_water;
     }
 
-
-
     /*
     This will initially be set to null.
     */
@@ -30,7 +28,7 @@ public class Map {
     {
         if(mapObj == null)
             return mapObj = new Map(prob);
-        else return null;
+        else return mapObj;
     }
 
     /*

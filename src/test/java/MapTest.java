@@ -7,15 +7,16 @@ import org.junit.Before;
 public class MapTest {
 
     Map m;
+    Map_Factory factory;
     public static final int HAZARD = 35;
     public static final int SAFE = 15;
 
     @Before
     public void setup(){
-        Map_Factory factory = new Map_Factory();
+        factory = new Map_Factory();
 
         //getMapInstance is the static method, thus it is called on the Map class directly.
-        Map m = factory.getMap("hazard"); Map.getMapInstance(HAZARD);
+        m = factory.getMap("hazardous");
     }
 
 
@@ -27,7 +28,11 @@ public class MapTest {
     @Test
     public void getInstanceTest()
     {
-        assertThat(m, is(not(null)));
+        Map.resetInstance();
+
+        m = factory.getMap("hazardous");
+
+        assertNotNull(m);
     }
 
     @Test
