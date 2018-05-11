@@ -8,9 +8,9 @@ public class Map_Factory {
         //return type of map according to parameter
         //prbablities are listed as static variables
         if(map_type.equals("hazardous")){
-            return new Map(HAZARDOUS);
+            return Map.getMapInstance(HAZARDOUS);
         }else if(map_type.equals("safe")){
-            return new Map(SAFE);
+            return Map.getMapInstance(SAFE);
         }else{
             return null;
         }

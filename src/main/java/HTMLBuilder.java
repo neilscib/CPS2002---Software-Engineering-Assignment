@@ -46,7 +46,7 @@ public class HTMLBuilder {
                         }
                     }else {
                         // check if the box is visited or not - if not visited check what type - if visited print gray
-                        //if (map[i][j].visited) {
+                        if (map[i][j].visited) {
                             if (map[i][j].type == Type.TREASURE){
                                 bw.write("<td height = 100 width = 100 bgcolor=\"#FFD700\"></td>\n");
                             }else if (map[i][j].type == Type.BLUE){
@@ -54,9 +54,9 @@ public class HTMLBuilder {
                             }else{
                                 bw.write("<td height = 100 width = 100 bgcolor=\"#00b33c\"></td>\n");
                             }
-                       /* }else{
+                        }else{
                             bw.write("<td height = 100 width = 100 bgcolor=\"#bfbfbf\"></td>\n");
-                        }*/
+                        }
                     }
                 }
                 bw.write("<tr>\n");
