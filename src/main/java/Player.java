@@ -9,7 +9,7 @@ public class Player
     private Cell [] [] map; //the private copy of the map
 
     //constrcutor to be able to initialize the 'position pointer'
-    public Player(Cell [] [] map)
+    public Player(Cell [] [] map, Map instance_map)
     {
         //just for the sake of having an object attached to the 'position' pointer, else it will lead to
         //null pointer exception.
@@ -19,7 +19,7 @@ public class Player
         this.map = map;
 
         //initialising map instance
-        myMap = new Map();
+        myMap = instance_map;
 
     }
 

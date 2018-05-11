@@ -11,11 +11,14 @@ public class Game{
     private Map map;
     private boolean [] treasureFlags; // a boolean for every player, which is true when a certain player has reached the treasure
     private boolean won; //signals whether the whole game has been won or not
+    //construct to build map
+    private Map_Factory map_factory = new Map_Factory();
+
 
     //constructor
-    public Game()
+    public Game(String map_type)
     {
-        map = new Map();
+        map = map_factory.getMap(map_type);
         won = false;
     }
 
@@ -24,7 +27,7 @@ public class Game{
         return map;
     }
 
-    public  void startGame(int size, int numPlayers)
+    public  void startGame(int size, int numPlayers, Map map_instance)
     {
         //on startup the map with the given size is generated 
         map.setSize(size);
@@ -38,7 +41,7 @@ public class Game{
         //creating the new position for every player
         for(int i = 0; i < numPlayers; i++)
         {
-            players[i] = new Player(map.getCopyOfMap());
+            players[i] = new Player(map.getCopyOfMap(), map_instance);
             players[i].setPosition(map.getTreasurePos(),size);
             players[i].setInitialPos();
 
@@ -101,17 +104,38 @@ public class Game{
     public static void main(String[] args)
     {
         Scanner in = new Scanner(System.in);
-        Game game = new Game();
         //game.map = new Map();
 
         int numPlayers;
         int size;
+        //1 = safe || 2 hazardous
+        int map_type;
+        //will hold type of map
+        String type_of_map;
 
         //The user will keep on being prompted to enter the size and the number of players until they are valid.
         System.out.println("Enter number of players:");
         numPlayers = in.nextInt();
         System.out.println("Enter size of map (n x n):");
         size = in.nextInt();
+        System.out.println("Enter type of map:\n");
+        System.out.println("Press 1 if safe or 2 if hazardous:");
+        map_type = in.nextInt();
+
+        switch(map_type){
+            case 1:
+                type_of_map = "hazardous";
+                break;
+            case 2:
+                type_of_map = "safe";
+                break;
+            default:
+                System.out.println("Invalid choice! Safe was automatically chosen for you.");
+                type_of_map = "safe";
+                break;
+        }
+
+        Game game = new Game(type_of_map);
 
         //while they are not valid
         while (!game.map.setMapSize(size, numPlayers))
@@ -124,7 +148,7 @@ public class Game{
             size = in.nextInt();
         }
 
-        game.startGame(size, numPlayers);
+        game.startGame(size,numPlayers, game.map);
 
         //starting HTML Builder
         HTMLBuilder builder = new HTMLBuilder(numPlayers, game.map.getMap());
