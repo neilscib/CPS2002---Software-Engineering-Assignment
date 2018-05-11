@@ -166,7 +166,7 @@ public class Game{
                 System.out.println();
 
                 //System.out.println("Player " + i + ", your position is: " + players[i].getPosition());
-                System.out.println("Enter direction:");
+                System.out.println("Player " + i + " enter direction:");
                 System.out.println("Up (u) Down (d) Left (l) Right (r)");
                 direction = game.askDirectionPlayer(i);
 

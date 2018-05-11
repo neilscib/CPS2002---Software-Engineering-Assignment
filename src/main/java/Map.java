@@ -6,9 +6,37 @@ public class Map {
     private Position treasure;
     private int probability_water;
 
+    /*
+    This sets the constructor(even if there is no implementation for it) as private, so no one can call new Map()
+    from another class, and the new object of class can only be created using getMapInstance().
+     */
     //map constructor
-    public Map(int probability_water){
+    public Map(int probability_water)
+    {
         this.probability_water = probability_water;
+    }
+
+    /*
+    This will initially be set to null.
+    */
+    private static Map mapObj;
+
+    /*
+    This method will create and return the instance of the map object.
+    */
+    public static Map getMapInstance(int prob)
+    {
+        if(mapObj == null)
+            return mapObj = new Map(prob);
+        else return mapObj;
+    }
+
+    /*
+    This will be called if the map instance needs to be deleted, for any reason whatsoever.
+     */
+    public static void resetInstance()
+    {
+        mapObj = null;
     }
 
     //check whether map size and number of players are compatible according to given restrictions
