@@ -129,7 +129,7 @@ public class Game{
         //starting HTML Builder
         HTMLBuilder builder = new HTMLBuilder(numPlayers, game.map.getMap());
 
-        System.out.println("Treasure is at: " + game.map.getTreasurePos());
+        //System.out.println("Treasure is at: " + game.map.getTreasurePos());
 
         //while the game has not been won
         while (!game.won)
