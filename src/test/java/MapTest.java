@@ -7,14 +7,17 @@ import org.junit.Before;
 public class MapTest {
 
     Map m;
-    public static final int WATERPROB = 25;
+    public static final int HAZARD = 35;
+    public static final int SAFE = 15;
 
-    /*
     @Before
     public void setup(){
-        m = new Map();
+        Map_Factory factory = new Map_Factory();
+
+        //getMapInstance is the static method, thus it is called on the Map class directly.
+        Map m = factory.getMap("hazard"); Map.getMapInstance(HAZARD);
     }
-    */
+
 
     @After
     public void teardown(){
@@ -24,13 +27,11 @@ public class MapTest {
     @Test
     public void getInstanceTest()
     {
-        assertThat(Map.getMapInstance(WATERPROB), is(not(null)));
+        assertThat(m, is(not(null)));
     }
 
     @Test
     public void minPlayerOutRangeSize(){
-        //getMapInstance is the static method, thus it is called on the Map class directly.
-        Map m = Map.getMapInstance();
 
         boolean result = m.setMapSize(2, 4);
         assertEquals(false, result);
@@ -38,8 +39,6 @@ public class MapTest {
 
     @Test
     public void maxPlayerOutRangeSize(){
-        //getMapInstance is the static method, thus it is called on the Map class directly.
-        Map m = Map.getMapInstance();
 
         boolean result = m.setMapSize(6, 8);
         assertEquals(false, result);
@@ -47,8 +46,6 @@ public class MapTest {
 
     @Test
     public void sizeOutOfRange(){
-        //getMapInstance is the static method, thus it is called on the Map class directly.
-        Map m = Map.getMapInstance();
 
         boolean result = m.setMapSize(55, 4);
         assertEquals(false, result);
@@ -56,8 +53,6 @@ public class MapTest {
 
     @Test
     public void minPlayerCorrectRangeSize(){
-        //getMapInstance is the static method, thus it is called on the Map class directly.
-        Map m = Map.getMapInstance();
 
         boolean result = m.setMapSize(5, 2);
         assertEquals(true, result);
@@ -65,8 +60,6 @@ public class MapTest {
 
     @Test
     public void maxPlayerCorrectRangeSize(){
-        //getMapInstance is the static method, thus it is called on the Map class directly.
-        Map m = Map.getMapInstance();
 
         boolean result = m.setMapSize(8, 5);
         assertEquals(true, result);
@@ -74,33 +67,29 @@ public class MapTest {
 
     @Test
     public void checkSizeSetter(){
-        //getMapInstance is the static method, thus it is called on the Map class directly.
-        Map m = Map.getMapInstance();
 
         m.setSize(5);
+
         assertEquals(5,m.getSize());
     }
 
     @Test
     public void checkGenerateMap(){
-        //getMapInstance is the static method, thus it is called on the Map class directly.
-        Map m = Map.getMapInstance();
 
         Position winPos = m.generateWinningCell(5);
         int x_coord = winPos.getX();
         int y_coord = winPos.getY();
 
-        Cell [] [] generatedMap = m.generateMap(5);
+        Cell [] [] generatedMap = m.generateMap(5, SAFE);
 
         assertEquals(generatedMap[x_coord][y_coord].type,Type.TREASURE);
     }
 
     @Test
     public void checkGetTile(){
-        //getMapInstance is the static method, thus it is called on the Map class directly.
-        Map m = Map.getMapInstance();
 
         m.setSize(5);
+
         Cell [] [] myMap = m.getMap();
         for (int i = 0; i < 5; i++){
             for (int j = 0; j<5; j++){
@@ -113,3 +102,4 @@ public class MapTest {
 
 
 }
+

@@ -4,15 +4,19 @@ public class Map {
     private int size;
     private Cell [] [] map;
     private Position treasure;
+    private int probability_water;
 
     /*
     This sets the constructor(even if there is no implementation for it) as private, so no one can call new Map()
     from another class, and the new object of class can only be created using getMapInstance().
      */
-    private Map(int prob)
+    //map constructor
+    public Map(int probability_water)
     {
-
+        this.probability_water = probability_water;
     }
+
+
 
     /*
     This will initially be set to null.
@@ -74,7 +78,7 @@ public class Map {
     public void setSize(int size) {
         this.size = size;
         generateWinningCell(size);
-        map = generateMap(size);
+        map = generateMap(size, probability_water);
     }
 
     //size getter
@@ -83,7 +87,7 @@ public class Map {
     }
 
     //generates the map and returns it
-    public Cell [] [] generateMap(int size){
+    public Cell [] [] generateMap(int size, int percentage_water){
         Random rand = new Random();
 
         //create map 2d array with accepted size
@@ -107,7 +111,7 @@ public class Map {
                     //System.out.println("a");
                 }else {
                     int randomNum = rand.nextInt(100);
-                    if(randomNum >10) {
+                    if(randomNum >percentage_water) {
                         //System.out.println("bg");
                         myMap[i][j] = new Cell(Type.GREEN);
                         //System.out.println("ag");
