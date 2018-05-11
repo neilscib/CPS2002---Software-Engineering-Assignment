@@ -1,0 +1,171 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: HTMLBuilder</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">&lt;empty package name&gt;</a> ]
+</div>
+
+<h1>Coverage Summary for Class: HTMLBuilder (&lt;empty package name&gt;)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">HTMLBuilder</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 43)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;import java.io.*;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;public class HTMLBuilder {
+<i>4</i>&nbsp;
+<b class="nc"><i>5</i>&nbsp;    BufferedWriter bw = null;</b>
+<b class="nc"><i>6</i>&nbsp;    FileWriter fw = null;</b>
+<i>7</i>&nbsp;
+<b class="nc"><i>8</i>&nbsp;    HTMLBuilder(int numPlayers, Cell [] [] map) {</b>
+<i>9</i>&nbsp;        String fileName;
+<b class="nc"><i>10</i>&nbsp;        Position tempPos = new Position(-1,-1);</b>
+<i>11</i>&nbsp;
+<b class="nc"><i>12</i>&nbsp;        for(int i = 0; i&lt;numPlayers; i++){</b>
+<b class="nc"><i>13</i>&nbsp;            fileName = &quot;Player&quot;+i+&quot;.html&quot;;</b>
+<i>14</i>&nbsp;
+<b class="nc"><i>15</i>&nbsp;            writeMapToFile(fileName,map,i,tempPos);</b>
+<i>16</i>&nbsp;        }
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;    }
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;    public void writeMapToFile(String fileName, Cell [] [] map, int playerNumber, Position p){
+<i>21</i>&nbsp;        try {
+<b class="nc"><i>22</i>&nbsp;            fw = new FileWriter(fileName);</b>
+<b class="nc"><i>23</i>&nbsp;            bw = new BufferedWriter(fw);</b>
+<b class="nc"><i>24</i>&nbsp;            bw.write(&quot;&lt;!DOCTYPE html&gt;\n&quot; +</b>
+<i>25</i>&nbsp;                    &quot;&lt;html&gt;\n&quot; +
+<i>26</i>&nbsp;                    &quot;&lt;head&gt;\n&quot; +
+<i>27</i>&nbsp;                    &quot;&lt;style&gt;\n&quot; +
+<i>28</i>&nbsp;                    &quot;table, th, td {\n&quot; +
+<i>29</i>&nbsp;                    &quot;    border: 1px solid black;\n&quot; +
+<i>30</i>&nbsp;                    &quot;}\n&quot; +
+<i>31</i>&nbsp;                    &quot;&lt;/style&gt;\n&quot; +
+<i>32</i>&nbsp;                    &quot;&lt;/head&gt;&quot;);
+<b class="nc"><i>33</i>&nbsp;            bw.write(&quot;&lt;body&gt;\n&quot;);</b>
+<b class="nc"><i>34</i>&nbsp;            bw.write(&quot;&lt;table&gt;\n&quot;);</b>
+<b class="nc"><i>35</i>&nbsp;            bw.write(&quot;&lt;tr&gt;\n&quot;+&quot;&lt;th colspan=\&quot;&quot; + map[0].length + &quot;\&quot;&gt;&quot; +&quot;Player &quot; + playerNumber + &quot;&lt;/th&gt;\n&quot;+&quot;&lt;/tr&gt;\n&quot;);</b>
+<i>36</i>&nbsp;
+<b class="nc"><i>37</i>&nbsp;            for(int i = 0; i&lt;map[0].length; i++){</b>
+<b class="nc"><i>38</i>&nbsp;                bw.write(&quot;&lt;tr&gt;\n&quot;);</b>
+<b class="nc"><i>39</i>&nbsp;                for(int j=0;j&lt;map[0].length;j++){</b>
+<i>40</i>&nbsp;                    //check if the player is in the current position - if he is print salmon and X
+<b class="nc"><i>41</i>&nbsp;                    if(p.getX() == i &amp;&amp; p.getY() == j){</b>
+<b class="nc"><i>42</i>&nbsp;                        if(map[i][j].type == Type.TREASURE){</b>
+<b class="nc"><i>43</i>&nbsp;                            bw.write(&quot;&lt;td height = 100 width = 100 bgcolor=\&quot;#FFD700\&quot;&gt;X&lt;/td&gt;\n&quot;);</b>
+<i>44</i>&nbsp;                        }else {
+<b class="nc"><i>45</i>&nbsp;                            bw.write(&quot;&lt;td height = 100 width = 100 bgcolor=\&quot;#ff6666\&quot;&gt;X&lt;/td&gt;\n&quot;);</b>
+<i>46</i>&nbsp;                        }
+<i>47</i>&nbsp;                    }else {
+<i>48</i>&nbsp;                        // check if the box is visited or not - if not visited check what type - if visited print gray
+<b class="nc"><i>49</i>&nbsp;                        if (map[i][j].visited) {</b>
+<b class="nc"><i>50</i>&nbsp;                            if (map[i][j].type == Type.TREASURE){</b>
+<b class="nc"><i>51</i>&nbsp;                                bw.write(&quot;&lt;td height = 100 width = 100 bgcolor=\&quot;#FFD700\&quot;&gt;&lt;/td&gt;\n&quot;);</b>
+<b class="nc"><i>52</i>&nbsp;                            }else if (map[i][j].type == Type.BLUE){</b>
+<b class="nc"><i>53</i>&nbsp;                                bw.write(&quot;&lt;td height = 100 width = 100 bgcolor=\&quot;#0040ff\&quot;&gt;&lt;/td&gt;\n&quot;);</b>
+<i>54</i>&nbsp;                            }else{
+<b class="nc"><i>55</i>&nbsp;                                bw.write(&quot;&lt;td height = 100 width = 100 bgcolor=\&quot;#00b33c\&quot;&gt;&lt;/td&gt;\n&quot;);</b>
+<i>56</i>&nbsp;                            }
+<i>57</i>&nbsp;                        }else{
+<b class="nc"><i>58</i>&nbsp;                            bw.write(&quot;&lt;td height = 100 width = 100 bgcolor=\&quot;#bfbfbf\&quot;&gt;&lt;/td&gt;\n&quot;);</b>
+<i>59</i>&nbsp;                        }
+<i>60</i>&nbsp;                    }
+<i>61</i>&nbsp;                }
+<b class="nc"><i>62</i>&nbsp;                bw.write(&quot;&lt;tr&gt;\n&quot;);</b>
+<i>63</i>&nbsp;            }
+<b class="nc"><i>64</i>&nbsp;            bw.write(&quot;&lt;/table&gt;\n&quot;);</b>
+<b class="nc"><i>65</i>&nbsp;            bw.write(&quot;&lt;/body&gt;\n&quot;);</b>
+<b class="nc"><i>66</i>&nbsp;            bw.write(&quot;&lt;/html&gt;\n&quot;);</b>
+<b class="nc"><i>67</i>&nbsp;        }catch(IOException ioe){</b>
+<b class="nc"><i>68</i>&nbsp;            ioe.printStackTrace();</b>
+<b class="nc"><i>69</i>&nbsp;            System.out.println(&quot;ErrorInReadingWritingFile: &quot; + fileName );</b>
+<i>70</i>&nbsp;        }finally {
+<i>71</i>&nbsp;
+<b class="nc"><i>72</i>&nbsp;            try {</b>
+<i>73</i>&nbsp;
+<b class="nc"><i>74</i>&nbsp;                if (bw != null)</b>
+<b class="nc"><i>75</i>&nbsp;                    bw.close();</b>
+<i>76</i>&nbsp;
+<b class="nc"><i>77</i>&nbsp;                if (fw != null)</b>
+<b class="nc"><i>78</i>&nbsp;                    fw.close();</b>
+<i>79</i>&nbsp;
+<b class="nc"><i>80</i>&nbsp;            } catch (IOException ioe) {</b>
+<i>81</i>&nbsp;
+<b class="nc"><i>82</i>&nbsp;                ioe.printStackTrace();</b>
+<i>83</i>&nbsp;
+<b class="nc"><i>84</i>&nbsp;            }</b>
+<b class="nc"><i>85</i>&nbsp;        }</b>
+<i>86</i>&nbsp;    }
+<i>87</i>&nbsp;
+<i>88</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2018-04-16 20:27</div>
+</div>
+</body>
+</html>
